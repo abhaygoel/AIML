@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+issuer: Amazon Web Services
+fields:
+  amount: TOTAL AMOUNT DUE.*INR ([\d,]+\.\d+)
+  date: Statement Date:\s+([a-zA-Z]+ \d+ , \d+)
+  invoice_number: Statement Number:\s+(\d+)
+  
+keywords:
+  - Amazon Web Services
+  - $
+  - Statement
+lines:
+    start: Summary
+    end: \* INR total calculated using a conversion rate of
+    first_line: ^    (?P<description>\w+.*)\$(?P<price_unit>\d+\.\d+)
+    line: (.*)\$(\d+\.\d+)
+    last_line: GST \*\*
+options:
+  currency: USD
+  date_formats:
+    - '%B %d, %Y'
+  languages:
+    - en
+  decimal_separator: '.'
